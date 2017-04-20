@@ -17,12 +17,12 @@ sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
 
 log-bin=mysqld-bin
 log-slave-updates
-enforce-gtid-consistency
-gtid-mode=ON
+#enforce-gtid-consistency
+#gtid-mode=ON
 server_id=
 report-host=
 report-port=3306
-master-info-repository=TABLE
+#master-info-repository=TABLE
 bind-address=0.0.0.0
 
 [mysqld_safe]
