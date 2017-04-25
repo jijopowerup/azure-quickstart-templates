@@ -8,7 +8,7 @@
         "virtualNetworkAddressPrefix": {
             "type": "string"
         },
-        "dbSubnetName": {
+        "subnet": {
             "type": "string"
         },
         "dbSubnetAddressPrefix": {
