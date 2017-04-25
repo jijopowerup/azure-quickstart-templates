@@ -18,7 +18,7 @@
       "type": "object"
     },
     
-    subnet": {
+    "subnet": {
       "type": "object"
     },
    
