@@ -216,7 +216,7 @@
                     "virtualNetworkAddressPrefix": {
                         "value": "[parameters('vnetAddressPrefix')]"
                     },
-                    "dbSubnetName": {
+                    "subnet": {
                         "value": "[parameters('dbSubnetName')]"
                     },
                     "dbSubnetAddressPrefix": {
