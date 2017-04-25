@@ -40,13 +40,13 @@
         },
         "subnets": [
           {
-            "name": "[parameters('networkSettings').dbSubnetName]",
+            "name": "[parameters('networkSettings').subnet]",
             "properties": {
               "addressPrefix": "[parameters('networkSettings').dbSubnetAddressPrefix]"
             }
           },
           {
-            "name": "[parameters('networkSettings').dbSubnetName]",
+            "name": "[parameters('networkSettings').subnet]",
             "properties": {
               "addressPrefix": "[parameters('networkSettings').dbSubnetAddressPrefix]"
             }
