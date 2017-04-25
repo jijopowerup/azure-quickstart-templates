@@ -19,7 +19,7 @@
     },
     
     "subnet": {
-      "type": "object"
+      "type": "string"
     },
    
     "replicatorPassword": {
