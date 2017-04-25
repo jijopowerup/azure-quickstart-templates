@@ -30,25 +30,25 @@
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/virtualNetworks",
-      "name": "[parameters('networkSettings').vnetName]",
+      "name": "[parameters('networkSettings').virtualNetworkName]",
       "location": "[resourceGroup().location]",
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[parameters('networkSettings').addressPrefix]"
+            "[parameters('networkSettings').virtualNetworkAddressPrefix]"
           ]
         },
         "subnets": [
           {
-            "name": "[parameters('networkSettings').subnets.dmz.name]",
+            "name": "[parameters('networkSettings').dbSubnetName]",
             "properties": {
-              "addressPrefix": "[parameters('networkSettings').subnets.dmz.prefix]"
+              "addressPrefix": "[parameters('networkSettings').dbSubnetAddressPrefix]"
             }
           },
           {
-            "name": "[parameters('networkSettings').subnets.data.name]",
+            "name": "[parameters('networkSettings').dbSubnetName]",
             "properties": {
-              "addressPrefix": "[parameters('networkSettings').subnets.data.prefix]"
+              "addressPrefix": "[parameters('networkSettings').dbSubnetAddressPrefix]"
             }
           }
         ]
