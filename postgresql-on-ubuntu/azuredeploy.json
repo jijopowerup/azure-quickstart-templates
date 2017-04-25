@@ -53,7 +53,7 @@
                 "description": "If using existing VNet, specifies the resource group for the existing VNet"
             }
         },
-        "dbSubnetName": {
+        "subnet": {
             "type": "string",
             "defaultValue": "dbsubnet",
             "metadata": {
