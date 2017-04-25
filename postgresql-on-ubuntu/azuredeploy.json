@@ -111,14 +111,8 @@
       "metadata": {
         "description": "The flag allowing to enable or disable provisioning of the jumpbox VM that can be used to access the PostgreSQL environment"
       }
-    },
-    "virtualNetworkName": {
-      "type": "string",
-      "defaultValue": "vnet",
-      "metadata": {
-        "description": "Virtual network name"
-      }
     }
+   
   },
   "variables": {
     "templateBaseUrl": "https://raw.githubusercontent.com/jijopowerup/azure-quickstart-templates/master/postgresql-on-ubuntu",
