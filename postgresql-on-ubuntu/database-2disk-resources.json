@@ -18,8 +18,12 @@
       "type": "object"
     },
     "subnet": {
-      "type": "object"
-    },
+            "type": "string",
+            "defaultValue": "s1",
+            "metadata": {
+                "description": "subnet name for the MySQL nodes"
+            }
+        },
     "replicatorPassword": {
       "type": "securestring"
     },
