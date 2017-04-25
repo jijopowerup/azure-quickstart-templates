@@ -27,6 +27,61 @@
         "description": "Virtual machine administrator password"
       }
     },
+    
+    "virtualNetworkName": {
+            "type": "string",
+            "defaultValue": "mysqlvnet",
+            "metadata": {
+                "description": "Virtual network name for the cluster"
+            }
+        },
+        "vnetNewOrExisting": {
+            "type": "string",
+            "defaultValue": "new",
+            "allowedValues": [
+                "new",
+                "existing"
+            ],
+            "metadata": {
+                "description": "Identifies whether to use new or existing Virtual Network"
+            }
+        },
+        "virtualNetworkExistingRGName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "If using existing VNet, specifies the resource group for the existing VNet"
+            }
+        },
+        "dbSubnetName": {
+            "type": "string",
+            "defaultValue": "dbsubnet",
+            "metadata": {
+                "description": "subnet name for the MySQL nodes"
+            }
+        },
+        "vnetAddressPrefix": {
+            "type": "string",
+            "defaultValue": "10.0.0.0/16",
+            "metadata": {
+                "description": "IP address in CIDR for virtual network"
+            }
+        },
+        "dbSubnetAddressPrefix": {
+            "type": "string",
+            "defaultValue": "10.0.1.0/24",
+            "metadata": {
+                "description": "IP address in CIDR for db subnet"
+            }
+        },
+        "dbSubnetStartAddress": {
+            "type": "string",
+            "defaultValue": "10.0.1.4",
+            "metadata": {
+                "description": "Start IP address in the subnet for the VMs"
+            }
+        },
+    
     "tshirtSize": {
       "type": "string",
       "defaultValue": "Small",
@@ -66,7 +121,12 @@
     }
   },
   "variables": {
-    "templateBaseUrl": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/postgresql-on-ubuntu/",
+    "templateBaseUrl": "https://raw.githubusercontent.com/jijopowerup/azure-quickstart-templates/master/postgresql-on-ubuntu",
+    "virtualNetworkSetupURL": "[concat(variables('templateBaseUrl'),'/vnet-',parameters('vnetNewOrExisting'),'.json')]",
+    "sa": "[parameters('dbSubnetStartAddress')]",
+    "ipOctet01": "[concat(split(variables('sa'), '.')[0], '.', split(variables('sa'), '.')[1], '.')]",
+    "ipOctet2": "[int(split(variables('sa'), '.')[2])]",
+    "ipOctet3": "[int(split(variables('sa'), '.')[3])]",
     "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'shared-resources.json')]",
     "tshirtSizeSmall": {
       "vmSize": "Standard_A1",
@@ -156,20 +216,21 @@
       }
     },
     "networkSettings": {
-      "vnetName": "[parameters('virtualNetworkName')]",
-      "addressPrefix": "10.0.0.0/16",
-      "subnets": {
-        "dmz": {
-          "name": "dmz",
-          "prefix": "10.0.0.0/24",
-          "vnet": "[parameters('virtualNetworkName')]"
-        },
-        "data": {
-          "name": "data",
-          "prefix": "10.0.1.0/24",
-          "vnet": "[parameters('virtualNetworkName')]"
-        }
-      }
+      "virtualNetworkName": {
+                        "value": "[parameters('virtualNetworkName')]"
+                    },
+                    "virtualNetworkAddressPrefix": {
+                        "value": "[parameters('vnetAddressPrefix')]"
+                    },
+                    "dbSubnetName": {
+                        "value": "[parameters('dbSubnetName')]"
+                    },
+                    "dbSubnetAddressPrefix": {
+                        "value": "[parameters('dbSubnetAddressPrefix')]"
+                    },
+                    "virtualNetworkExistingRGName": {
+                        "value": "[parameters('virtualNetworkExistingRGName')]"
+                    }
     },
     "availabilitySetSettings": {
       "name": "pgsqlAvailabilitySet",
@@ -225,7 +286,7 @@
             "value": "[variables('osSettings')]"
           },
           "subnet": {
-            "value": "[variables('networkSettings').subnets.data]"
+            "value": "[variables('networkSettings').dbSubnetName]"
           },
           "commonSettings": {
             "value": {
@@ -277,7 +338,7 @@
             "value": "[variables('osSettings')]"
           },
           "subnet": {
-            "value": "[variables('networkSettings').subnets.data]"
+            "value": "[variables('networkSettings').dbSubnetName]"
           },
           "commonSettings": {
             "value": {
@@ -337,7 +398,7 @@
             "value": "[parameters('adminPassword')]"
           },
           "subnet": {
-            "value": "[variables('networkSettings').subnets.dmz]"
+            "value": "[variables('networkSettings').dbSubnetName]"
           },
           "osSettings": {
             "value": "[variables('osSettings')]"
